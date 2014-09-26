@@ -1,0 +1,15 @@
+#original {
+  float: left;
+  width: 500px;
+}
+
+#scrambled {
+  float: left;
+  width: 500px;
+}
+
+img {
+  height: auto;
+  width: auto;
+  max-width: 300px;
+}
