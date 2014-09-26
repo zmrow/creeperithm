@@ -1,11 +1,18 @@
 #original {
   float: left;
-  width: 500px;
+  width: 400px;
 }
 
 #scrambled {
   float: left;
-  width: 500px;
+  width: 416px;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  float:left;
+  border: 1px solid black;
 }
 
 img {
