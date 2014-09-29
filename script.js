@@ -26,9 +26,53 @@ function Block(color, position) {
   this.color = color;
   this.position = position;
   this.toHTML = function() {
-    return '<div id="square" class=' + this.color + '></div>';
+    return '<div id="square" class=' + this.color +' ' + 
+      this.position + '></div>';
   };
 }
+
+function shuffle(m) {
+  // swap last card with a random card from left
+  var $mth,
+    rand = Math.floor(Math.random() * m),
+    $rand;
+
+  //$('li').removeClass('swapping');
+
+//  $mth = $('#square:eq(' + m + ')')
+//    //.addClass('swapping')
+//    .fadeIn();
+//    console.log($mth);
+//  $rand = $('#square:eq(' + rand + ')')
+//    //.addClass('swapping')
+//    .fadeIn();
+//    console.log($rand);
+
+  $mth = $('#square:eq(' + m + ')')
+    //.addClass('swapping')
+    .fadeIn();
+    console.log($mth);
+  $rand = $('#square:eq(' + rand + ')')
+    //.addClass('swapping')
+    .fadeIn();
+    console.log($rand);
+  $mth.before($rand);
+  $('#square:eq(' + rand + ')').before($mth);
+
+  if (m > 0) {
+    setTimeout(shuffle, 100, m - 1);
+    console.log(m);
+  } else {
+    //$('li').removeClass('swapping');
+    console.log("hello");
+  }
+}
+
+
+$('#shuffle').on('click', function() {
+  shuffle($('#scrambled #square').length - 1);
+  console.log($('#scrambled #square').length - 1);
+});
 
 $(document).ready(function() {
  var creeper = new Creeper();
