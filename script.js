@@ -39,25 +39,16 @@ function shuffle(m) {
 
   //$('li').removeClass('swapping');
 
-//  $mth = $('#square:eq(' + m + ')')
-//    //.addClass('swapping')
-//    .fadeIn();
-//    console.log($mth);
-//  $rand = $('#square:eq(' + rand + ')')
-//    //.addClass('swapping')
-//    .fadeIn();
-//    console.log($rand);
-
-  $mth = $('#square:eq(' + m + ')')
+  $mth = $('#scrambled > div:eq(' + m + ')')
     //.addClass('swapping')
     .fadeIn();
     console.log($mth);
-  $rand = $('#square:eq(' + rand + ')')
+  $rand = $('#scrambled > div:eq(' + rand + ')')
     //.addClass('swapping')
     .fadeIn();
     console.log($rand);
   $mth.before($rand);
-  $('#square:eq(' + rand + ')').before($mth);
+  $('#scrambled > div:eq(' + rand + ')').before($mth);
 
   if (m > 0) {
     setTimeout(shuffle, 100, m - 1);
