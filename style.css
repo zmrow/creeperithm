@@ -1,6 +1,12 @@
 #original {
   float: left;
-  width: 400px;
+  margin-right: 50px;
+}
+
+img {
+  height: auto;
+  width: auto;
+  max-width: 500px;
 }
 
 #scrambled {
@@ -23,8 +29,3 @@
   background-color: #131414;
 }
 
-img {
-  height: auto;
-  width: auto;
-  max-width: 300px;
-}
