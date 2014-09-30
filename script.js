@@ -26,37 +26,41 @@ function Block(color, position) {
   this.color = color;
   this.position = position;
   this.toHTML = function() {
-    return '<div id="square" class=' + this.color +' ' + 
+    return '<div id="square" class="' + this.color +'"' + ' position=' + 
       this.position + '></div>';
   };
 }
 
 function shuffle(m) {
-  // swap last card with a random card from left
+  // Start with final block and swap with one before it
   var $mth,
     rand = Math.floor(Math.random() * m),
     $rand;
 
-  //$('li').removeClass('swapping');
-
   $mth = $('#scrambled > div:eq(' + m + ')')
-    //.addClass('swapping')
-    .fadeIn();
+    .fadeOut(50).fadeIn(200);
     console.log($mth);
   $rand = $('#scrambled > div:eq(' + rand + ')')
-    //.addClass('swapping')
-    .fadeIn();
+    .fadeOut(50).fadeIn(200);
     console.log($rand);
   $mth.before($rand);
   $('#scrambled > div:eq(' + rand + ')').before($mth);
 
   if (m > 0) {
-    setTimeout(shuffle, 100, m - 1);
+    setTimeout(shuffle, 1000, m - 1);
     console.log(m);
   } else {
-    //$('li').removeClass('swapping');
     console.log("hello");
   }
+}
+
+function sort() {
+  console.log($('#scrambled > div').toArray());
+  var divs = $('#scrambled > div').toArray();
+  console.log($('div[position]'));
+
+  var middle = parseInt(divs.length / 2);
+
 }
 
 
@@ -67,6 +71,7 @@ $('#shuffle').on('click', function() {
 
 $(document).ready(function() {
  var creeper = new Creeper();
+ sort();
 });
 
 //blck = 20
