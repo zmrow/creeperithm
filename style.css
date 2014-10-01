@@ -21,6 +21,16 @@ img {
   border: 1px solid #A8E190;
 }
 
+span {
+  margin-bottom: 10px;
+  width: 100%;
+  display: block;
+}
+
+#shuffle #square {
+  float: left;
+}
+
 .G {
   background-color: #59C629;
 }

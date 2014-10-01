@@ -43,11 +43,12 @@ function shuffle(m) {
   $rand = $('#scrambled > div:eq(' + rand + ')')
     .fadeOut(50).fadeIn(200);
     console.log($rand);
+
   $mth.before($rand);
   $('#scrambled > div:eq(' + rand + ')').before($mth);
 
   if (m > 0) {
-    setTimeout(shuffle, 1000, m - 1);
+    setTimeout(shuffle, 500, m - 1);
     console.log(m);
   } else {
     console.log("hello");
@@ -55,19 +56,32 @@ function shuffle(m) {
 }
 
 function sort(divs) {
-  var divs = $('div[position]').toArray();
-  console.log($('div[position]'));
   var middle =  parseInt(divs.length / 2),
       left =    divs.slice(0, middle),
       right =   divs.slice(middle);
-  // Find all divs with position into array
-  // Split that array in half
-  //
-  return merge(sort(left), sort(right));
+  console.log(left.eq(0).attr('position'));
+  console.log(left.length);
+  
+  //return mergeSort(sort(left), sort(right));
 }
 
-function mergeSort() {
+function mergeSort(left, right) {
+  var result = [],
+      l = 0,
+      r = 0,
+      lPosition = left.eq(0).attr('position'),
+      rPosition = right.eq(0).attr('position');
 
+  while (l < left.length && r < right.length) {
+    if (lPosition < rPosition) {
+      console.log(lPosition);
+      console.log(left.eq(0));
+      //$('#scrambled').prepend(left.eq(0));
+    } else {
+      console.log(rPosition);
+      //$('#scrambled').prepend(right.eq(r++));
+    }
+  }
 }
 
 
@@ -76,9 +90,14 @@ $('#shuffle').on('click', function() {
   console.log($('#scrambled #square').length - 1);
 });
 
+$('#sort').on('click', function() {
+  var divs = $('div[position]');
+  console.log(divs);
+  sort(divs);
+})
+
 $(document).ready(function() {
- var creeper = new Creeper();
- sort();
+  var creeper = new Creeper();
 });
 
 //blck = 20
