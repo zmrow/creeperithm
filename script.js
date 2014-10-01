@@ -54,12 +54,19 @@ function shuffle(m) {
   }
 }
 
-function sort() {
-  console.log($('#scrambled > div').toArray());
-  var divs = $('#scrambled > div').toArray();
+function sort(divs) {
+  var divs = $('div[position]').toArray();
   console.log($('div[position]'));
+  var middle =  parseInt(divs.length / 2),
+      left =    divs.slice(0, middle),
+      right =   divs.slice(middle);
+  // Find all divs with position into array
+  // Split that array in half
+  //
+  return merge(sort(left), sort(right));
+}
 
-  var middle = parseInt(divs.length / 2);
+function mergeSort() {
 
 }
 
