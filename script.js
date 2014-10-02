@@ -9,13 +9,13 @@ function Creeper() {
     if (color == 'G') {
       $.each(theBlock.gPositions, function(index, position) {
         var block = new Block(color, position);
-        $('#scrambled').append(block.toHTML());
+        $('#container').append(block.toHTML());
         console.log(block);
       });
     } else {
       $.each(theBlock.bPositions, function(index, position) {
         var block = new Block(color, position);
-        $('#scrambled').append(block.toHTML());
+        $('#container').append(block.toHTML());
         console.log(block);
       });
     }
@@ -37,15 +37,15 @@ function shuffle(m) {
     rand = Math.floor(Math.random() * m),
     $rand;
 
-  $mth = $('#scrambled > div:eq(' + m + ')')
+  $mth = $('#container > div:eq(' + m + ')')
     .fadeOut(50).fadeIn(200);
     console.log($mth);
-  $rand = $('#scrambled > div:eq(' + rand + ')')
+  $rand = $('#container > div:eq(' + rand + ')')
     .fadeOut(50).fadeIn(200);
     console.log($rand);
 
   $mth.before($rand);
-  $('#scrambled > div:eq(' + rand + ')').before($mth);
+  $('#container > div:eq(' + rand + ')').before($mth);
 
   if (m > 0) {
     setTimeout(shuffle, 500, m - 1);
@@ -56,13 +56,25 @@ function shuffle(m) {
 }
 
 function sort(divs) {
+  if (divs.length < 2 ) {
+    return divs;
+  }
   var middle =  parseInt(divs.length / 2),
       left =    divs.slice(0, middle),
       right =   divs.slice(middle);
-  console.log(left.eq(0).attr('position'));
-  console.log(left.length);
+  //console.log(left.eq(0).attr('position'));
+  //console.log(left.length);
+  //console.log(left +"-" +right + "-" + middle);
+  //console.log(divs.slice(0,middle));
+  //console.log(left.eq(0).attr('position'));
+  //console.log(right.eq(0).attr('position'));
+  //if (left.eq(0).attr('position') < right.eq(0).attr('position')) {
+  //  console.log(left.eq(0).attr('position'));
+  //}
+  console.log(divs);
+
   
-  //return mergeSort(sort(left), sort(right));
+  return mergeSort(sort(left), sort(right));
 }
 
 function mergeSort(left, right) {
@@ -71,23 +83,23 @@ function mergeSort(left, right) {
       r = 0,
       lPosition = left.eq(0).attr('position'),
       rPosition = right.eq(0).attr('position');
+  console.log(left.length);
 
-  while (l < left.length && r < right.length) {
+  if (l < left.length && r < right.length) {
     if (lPosition < rPosition) {
       console.log(lPosition);
-      console.log(left.eq(0));
-      //$('#scrambled').prepend(left.eq(0));
+      $('#container').prepend(left.eq(0));
     } else {
       console.log(rPosition);
-      //$('#scrambled').prepend(right.eq(r++));
+      $('#container').prepend(right.eq(r++));
     }
   }
 }
 
 
 $('#shuffle').on('click', function() {
-  shuffle($('#scrambled #square').length - 1);
-  console.log($('#scrambled #square').length - 1);
+  shuffle($('#container #square').length - 1);
+  console.log($('#container #square').length - 1);
 });
 
 $('#sort').on('click', function() {

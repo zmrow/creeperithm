@@ -13,6 +13,10 @@ img {
   float: left;
   width: 416px;
 }
+#container{
+  float: left;
+  width: 416px;
+}
 
 #square {
   width: 50px;
