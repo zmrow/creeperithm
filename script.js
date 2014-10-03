@@ -10,13 +10,13 @@ function Creeper() {
       $.each(theBlock.gPositions, function(index, position) {
         var block = new Block(color, position);
         $('#container').append(block.toHTML());
-        console.log(block);
+        //console.log(block);
       });
     } else {
       $.each(theBlock.bPositions, function(index, position) {
         var block = new Block(color, position);
         $('#container').append(block.toHTML());
-        console.log(block);
+        //console.log(block);
       });
     }
   });
@@ -26,7 +26,7 @@ function Block(color, position) {
   this.color = color;
   this.position = position;
   this.toHTML = function() {
-    return '<div id="square" class="' + this.color +'"' + ' data-position=' + 
+    return '<div class="square ' + this.color +'"' + ' data-position=' + 
       this.position + '></div>';
   };
 }
@@ -56,63 +56,50 @@ function shuffle(m) {
 }
 
 function sort(divs) {
-  if (divs.length < 2 ) {
+  if (divs.length == 1) {
     return divs;
   }
 
-  var middle =  parseInt(divs.length / 2),
+  var middle =  (divs.length / 2),
       left =    divs.slice(0, middle),
-      right =   divs.slice(middle);
+      right =   divs.slice(middle, divs.length);
 
-  console.log(left[0]);
   return mergeSort(sort(left), sort(right));
 }
 
 function mergeSort(left, right) {
+  alert(left);
   var result = [],
-      l = 0,
-      r = 0,
-      leftFirst = left[l],
-      rightFirst = right[r],
-      lPosition = leftFirst.this.data('position');//.attr('position'),
-      rPosition = rightFirst.this.data('position');//.attr('position');
+      lPosition = jQuery.data(left),
+      rPosition = jQuery.data(right);
+      
 
-  while (l < left.length && r < right.length) {
-   if (lPosition < rPosition) {
-      result.push(left[l++]);
-   } else {
-      result.push(left[r++]);
-   }
+  while (left.length || right.length) {
+    if(left.length && right.length) {
+      if (lPosition < rPosition) {
+        result.push(left.shift());
+      } else {
+        result.push(right.shift());
+      }
+    } else if (left.length) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
   }
-  return result.concat(left.slice(l)).concat(right.slice(r));
+  console.log(result);
+  return result;
 }
 
-// function bubbleSort(divs) {
-//   for (var i = 0; i < divs.length *3; i++) {
-//     var first = divs.eq(i).attr('position'),
-//         second = divs.eq(i + 1).attr('position'),
-//         rand = Math.floor(Math.random() * 63),
-//         $ath = $('#container > div:eq('+ i +')'),
-//         $bth = $('#container > div:eq('+ (i+1) +')'),
-//         $rand = $('#container > div:eq(' + rand + ')');
-//     console.log(first,second);
-//     if (first > second) {
-//       console.log("true");
-//     };
-//   };
-//   console.log(divs);
-// }
-
 $('#shuffle').on('click', function() {
-  shuffle($('#container #square').length - 1);
-  console.log($('#container #square').length - 1);
+  shuffle($('#container .square').length - 1);
+  console.log($('#container .square').length - 1);
 });
 
 $('#sort').on('click', function() {
   var divs = $('div[data-position]').toArray();
-  console.log(divs);
   sort(divs);
-})
+});
 
 $(document).ready(function() {
   var creeper = new Creeper();
