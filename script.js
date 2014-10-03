@@ -26,7 +26,7 @@ function Block(color, position) {
   this.color = color;
   this.position = position;
   this.toHTML = function() {
-    return '<div id="square" class="' + this.color +'"' + ' position=' + 
+    return '<div id="square" class="' + this.color +'"' + ' data-position=' + 
       this.position + '></div>';
   };
 }
@@ -64,45 +64,44 @@ function sort(divs) {
       left =    divs.slice(0, middle),
       right =   divs.slice(middle);
 
-  mergeSort(sort(left), sort(right));
+  console.log(left[0]);
+  return mergeSort(sort(left), sort(right));
 }
 
 function mergeSort(left, right) {
   var result = [],
       l = 0,
       r = 0,
-      lPosition = left.eq(l).attr('position'),
-      rPosition = right.eq(r).attr('position');
+      leftFirst = left[l],
+      rightFirst = right[r],
+      lPosition = leftFirst.this.data('position');//.attr('position'),
+      rPosition = rightFirst.this.data('position');//.attr('position');
 
   while (l < left.length && r < right.length) {
    if (lPosition < rPosition) {
-      result.push(left.eq(l));
-      l+=1;
-      console.log(result);
+      result.push(left[l++]);
    } else {
-      result.push(left.eq(r));
-      
-      console.log(result);
+      result.push(left[r++]);
    }
   }
   return result.concat(left.slice(l)).concat(right.slice(r));
 }
 
-function bubbleSort(divs) {
-  for (var i = 0; i < divs.length *3; i++) {
-    var first = divs.eq(i).attr('position'),
-        second = divs.eq(i + 1).attr('position'),
-        rand = Math.floor(Math.random() * 63),
-        $ath = $('#container > div:eq('+ i +')'),
-        $bth = $('#container > div:eq('+ (i+1) +')'),
-        $rand = $('#container > div:eq(' + rand + ')');
-    console.log(first,second);
-    if (first > second) {
-      console.log("true");
-    };
-  };
-  console.log(divs);
-}
+// function bubbleSort(divs) {
+//   for (var i = 0; i < divs.length *3; i++) {
+//     var first = divs.eq(i).attr('position'),
+//         second = divs.eq(i + 1).attr('position'),
+//         rand = Math.floor(Math.random() * 63),
+//         $ath = $('#container > div:eq('+ i +')'),
+//         $bth = $('#container > div:eq('+ (i+1) +')'),
+//         $rand = $('#container > div:eq(' + rand + ')');
+//     console.log(first,second);
+//     if (first > second) {
+//       console.log("true");
+//     };
+//   };
+//   console.log(divs);
+// }
 
 $('#shuffle').on('click', function() {
   shuffle($('#container #square').length - 1);
@@ -110,7 +109,7 @@ $('#shuffle').on('click', function() {
 });
 
 $('#sort').on('click', function() {
-  var divs = $('div[position]');
+  var divs = $('div[data-position]').toArray();
   console.log(divs);
   sort(divs);
 })
