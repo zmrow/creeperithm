@@ -68,10 +68,10 @@ function sort(divs) {
 }
 
 function mergeSort(left, right) {
-  alert(left);
+  console.log(left);
   var result = [],
-      lPosition = jQuery.data(left),
-      rPosition = jQuery.data(right);
+      lPosition = left.attr("data-position"),
+      rPosition = right.attr("data-position");
       
 
   while (left.length || right.length) {
