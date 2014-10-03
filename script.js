@@ -59,43 +59,50 @@ function sort(divs) {
   if (divs.length < 2 ) {
     return divs;
   }
+
   var middle =  parseInt(divs.length / 2),
       left =    divs.slice(0, middle),
       right =   divs.slice(middle);
-  //console.log(left.eq(0).attr('position'));
-  //console.log(left.length);
-  //console.log(left +"-" +right + "-" + middle);
-  //console.log(divs.slice(0,middle));
-  //console.log(left.eq(0).attr('position'));
-  //console.log(right.eq(0).attr('position'));
-  //if (left.eq(0).attr('position') < right.eq(0).attr('position')) {
-  //  console.log(left.eq(0).attr('position'));
-  //}
-  console.log(divs);
 
-  
-  return mergeSort(sort(left), sort(right));
+  mergeSort(sort(left), sort(right));
 }
 
 function mergeSort(left, right) {
   var result = [],
       l = 0,
       r = 0,
-      lPosition = left.eq(0).attr('position'),
-      rPosition = right.eq(0).attr('position');
-  console.log(left.length);
+      lPosition = left.eq(l).attr('position'),
+      rPosition = right.eq(r).attr('position');
 
-  if (l < left.length && r < right.length) {
-    if (lPosition < rPosition) {
-      console.log(lPosition);
-      $('#container').prepend(left.eq(0));
-    } else {
-      console.log(rPosition);
-      $('#container').prepend(right.eq(r++));
-    }
+  while (l < left.length && r < right.length) {
+   if (lPosition < rPosition) {
+      result.push(left.eq(l));
+      l+=1;
+      console.log(result);
+   } else {
+      result.push(left.eq(r));
+      
+      console.log(result);
+   }
   }
+  return result.concat(left.slice(l)).concat(right.slice(r));
 }
 
+function bubbleSort(divs) {
+  for (var i = 0; i < divs.length *3; i++) {
+    var first = divs.eq(i).attr('position'),
+        second = divs.eq(i + 1).attr('position'),
+        rand = Math.floor(Math.random() * 63),
+        $ath = $('#container > div:eq('+ i +')'),
+        $bth = $('#container > div:eq('+ (i+1) +')'),
+        $rand = $('#container > div:eq(' + rand + ')');
+    console.log(first,second);
+    if (first > second) {
+      console.log("true");
+    };
+  };
+  console.log(divs);
+}
 
 $('#shuffle').on('click', function() {
   shuffle($('#container #square').length - 1);
@@ -111,8 +118,4 @@ $('#sort').on('click', function() {
 $(document).ready(function() {
   var creeper = new Creeper();
 });
-
-//blck = 20
-//g = 44
-
 
