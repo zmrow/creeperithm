@@ -66,32 +66,21 @@ function sort(divs) {
 }
 
 function mergeSort(left, right) {
-  console.log(left);
-  console.log(left[0].eq(0));
-
   var result = [],
       lPosition = left.eq(0).data('position'),
       rPosition = right.eq(0).data('position');
-  
-
 
   while (left.length || right.length) {
-    console.log(jQuery.type(left));
-    console.log(left.length);
     if (left.length && right.length) {
       if (lPosition < rPosition) {
-        result.push(left.first().remove());
-        //result.push(left.shift());
+        result.push(left.shift());
       } else {
-        result.push(right.first().remove());
-        //result.push(r.shift());
+        result.push(right.shift());
       }
     } else if (left.length) {
-      result.push(left.first().remove());
-      //result.push(l.shift());
+      result.push(left.shift());
     } else {
-      result.push(right.first().remove());
-      //result.push(r.shift());
+      result.push(right.shift());
     }
   }
   console.log(result);
@@ -104,8 +93,7 @@ $('#shuffle').on('click', function() {
 });
 
 $('#sort').on('click', function() {
-  var elems = $('div[data-position]')//.toArray();
-  var divs = $.makeArray(elems);
+  var divs = $('div[data-position]').toArray();
   sort(divs);
 });
 
