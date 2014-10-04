@@ -10,13 +10,11 @@ function Creeper() {
       $.each(theBlock.gPositions, function(index, position) {
         var block = new Block(color, position);
         $('#container').append(block.toHTML());
-        //console.log(block);
       });
     } else {
       $.each(theBlock.bPositions, function(index, position) {
         var block = new Block(color, position);
         $('#container').append(block.toHTML());
-        //console.log(block);
       });
     }
   });
@@ -69,27 +67,28 @@ function sort(divs) {
 
 function mergeSort(left, right) {
   console.log(left);
-  console.log(jQuery.type(left));
+  console.log(typeof(left));
   console.log(left[0]);
-  var blah = left[0];
-  blah.attr('data-position');
+  //var blah = $.extend({}, left);
+  //console.log(blah);
   var result = [],
-      lPosition = left[0],
-      rPosition = right.eq(0).attr("data-position");
-      console.log(lPosition);
-      
+      lPosition = left[0].data('position'),
+      rPosition = right.eq(0).data('position');
+  
+
 
   while (left.length || right.length) {
+    console.log(jQuery.type(left));
     if(left.length && right.length) {
       if (lPosition < rPosition) {
-        result.push(left.shift());
+        result.push(l.shift());
       } else {
-        result.push(right.shift());
+        result.push(r.shift());
       }
     } else if (left.length) {
-      result.push(left.shift());
+      result.push(l.shift());
     } else {
-      result.push(right.shift());
+      result.push(r.shift());
     }
   }
   console.log(result);
@@ -102,7 +101,8 @@ $('#shuffle').on('click', function() {
 });
 
 $('#sort').on('click', function() {
-  var divs = $('div[data-position]').toArray();
+  var arr = $('div[data-position]')//.toArray();
+  var divs = jQuery.makeArray(arr);
   sort(divs);
 });
 
