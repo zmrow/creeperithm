@@ -67,28 +67,31 @@ function sort(divs) {
 
 function mergeSort(left, right) {
   console.log(left);
-  console.log(typeof(left));
-  console.log(left[0]);
-  //var blah = $.extend({}, left);
-  //console.log(blah);
+  console.log(left[0].eq(0));
+
   var result = [],
-      lPosition = left[0].data('position'),
+      lPosition = left.eq(0).data('position'),
       rPosition = right.eq(0).data('position');
   
 
 
   while (left.length || right.length) {
     console.log(jQuery.type(left));
-    if(left.length && right.length) {
+    console.log(left.length);
+    if (left.length && right.length) {
       if (lPosition < rPosition) {
-        result.push(l.shift());
+        result.push(left.first().remove());
+        //result.push(left.shift());
       } else {
-        result.push(r.shift());
+        result.push(right.first().remove());
+        //result.push(r.shift());
       }
     } else if (left.length) {
-      result.push(l.shift());
+      result.push(left.first().remove());
+      //result.push(l.shift());
     } else {
-      result.push(r.shift());
+      result.push(right.first().remove());
+      //result.push(r.shift());
     }
   }
   console.log(result);
@@ -101,8 +104,8 @@ $('#shuffle').on('click', function() {
 });
 
 $('#sort').on('click', function() {
-  var arr = $('div[data-position]')//.toArray();
-  var divs = jQuery.makeArray(arr);
+  var elems = $('div[data-position]')//.toArray();
+  var divs = $.makeArray(elems);
   sort(divs);
 });
 
